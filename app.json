@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ad5fb437-c285-4c37-8ba4-7f8edc6871c3"
+      }
+    },
+    "owner": "hailatgh"
   }
 }
