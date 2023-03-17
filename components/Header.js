@@ -1,12 +1,15 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { useTheme, useToggleTheme, useInput } from "../context";
+import { useTheme, useToggleTheme, useInput, useResult } from "../context";
 import { colors } from "../data/UIData";
 
 export default function Header() {
   const toggleTheme = useToggleTheme();
   const darkTheme = useTheme();
+
+  const input = useInput();
+  const result = useResult();
 
   return (
     <View style={styles.container}>
@@ -51,8 +54,9 @@ export default function Header() {
                 : colors.light.expressionText,
             },
           ]}
+          numberOfLines={2}
         >
-          308 x 12
+          {input}
         </Text>
         <Text
           style={[
@@ -63,8 +67,9 @@ export default function Header() {
                 : colors.light.resultText,
             },
           ]}
+          numberOfLines={1}
         >
-          12,936
+          {result}
         </Text>
       </View>
     </View>
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
   },
   textInputWraper: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "flex-end",
     padding: 20,
   },

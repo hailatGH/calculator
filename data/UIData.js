@@ -77,7 +77,7 @@ export const UIData = [
     },
     {
       id: 8,
-      name: "X",
+      name: "*",
       color: colors.dark.keyPadSecondary,
       lcolor: colors.light.keyPadSecondary,
     },

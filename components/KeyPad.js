@@ -1,17 +1,28 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import { useTheme, useUpdateInput, useInput } from "../context";
+import {
+  useInput,
+  useTheme,
+  useUpdateInput,
+  useUpdateResult,
+} from "../context";
 import { colors } from "../data/UIData";
 
 export default function KeyPad({ name, color }) {
   const darkTheme = useTheme();
-  const updateInput = useUpdateInput();
   const input = useInput();
+  const updateInput = useUpdateInput();
+  const updateResult = useUpdateResult();
+  const operators = ["+/-", "%", "/", "*", "-", "+"];
 
   const handlePress = () => {
-    if (name === "AC") return updateInput([]);
-    else if (name === "=") return;
-    else return updateInput((prevInput) => [...prevInput, name]);
+    if (name === "AC") {
+      updateInput("");
+      updateResult(0);
+    } else if (name === "H") return;
+    else if (name === "=") {
+      updateResult(eval(input));
+    } else return updateInput((prevInput) => prevInput + name);
   };
 
   return (

@@ -12,7 +12,7 @@ export const useUpdateResult = () => {
 };
 
 export function ResultProvider({ children }) {
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState("0");
   return (
     <ResultContext.Provider value={result}>
       <UpdateResultContext.Provider value={setResult}>

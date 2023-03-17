@@ -12,7 +12,7 @@ export function useUpdateInput() {
 }
 
 export function InputProvider({ children }) {
-  const [input, setInput] = useState([]);
+  const [input, setInput] = useState("");
 
   return (
     <InputContext.Provider value={input}>
