@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { useTheme, useToggleTheme } from "../context/ThemeContext";
+import { useTheme, useToggleTheme, useInput } from "../context";
 import { colors } from "../data/UIData";
 
 export default function Header() {

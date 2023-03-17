@@ -1,12 +1,14 @@
 import { StyleSheet, View } from "react-native";
 
 import KeyPad from "./KeyPad";
-import { UIData } from "../data/UIData";
-import { useTheme } from "../context/ThemeContext";
-import { colors } from "../data/UIData";
+import { UIData, colors } from "../data/UIData";
+import { useTheme, useInput } from "../context";
 
 export default function KeyPadContainer() {
   const darkTheme = useTheme();
+  const input = useInput();
+
+  console.log(input);
 
   return (
     <View
