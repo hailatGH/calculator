@@ -1,8 +1,23 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { useTheme, useToggleTheme, useInput, useResult } from "../context";
+import {
+  useTheme,
+  useToggleTheme,
+  useInput,
+  useResult,
+  useDisplayHistory,
+  useHistory,
+} from "../context";
 import { colors } from "../data/UIData";
+
+import ListItem from "./ListItem";
 
 export default function Header() {
   const toggleTheme = useToggleTheme();
@@ -10,6 +25,9 @@ export default function Header() {
 
   const input = useInput();
   const result = useResult();
+
+  const displayHistory = useDisplayHistory();
+  const history = useHistory();
 
   return (
     <View style={styles.container}>
@@ -44,34 +62,59 @@ export default function Header() {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.textInputWraper}>
-        <Text
+
+      {displayHistory ? (
+        <View
           style={[
-            styles.expressionText,
+            styles.histroyWraper,
             {
-              color: darkTheme
-                ? colors.dark.expressionText
-                : colors.light.expressionText,
+              backgroundColor: darkTheme
+                ? colors.dark.historyContainer
+                : colors.light.historyContainer,
             },
           ]}
-          numberOfLines={2}
         >
-          {input}
-        </Text>
-        <Text
-          style={[
-            styles.resultText,
-            {
-              color: darkTheme
-                ? colors.dark.resultText
-                : colors.light.resultText,
-            },
-          ]}
-          numberOfLines={1}
-        >
-          {result}
-        </Text>
-      </View>
+          <FlatList
+            data={history}
+            renderItem={({ item }) => <ListItem value={item} />}
+            keyExtractor={(item) => item?.id}
+            ItemSeparatorComponent={() => (
+              <View style={styles.sparatorComp}></View>
+            )}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      ) : (
+        <View style={styles.textInputWraper}>
+          <Text
+            style={[
+              styles.expressionText,
+              {
+                color: darkTheme
+                  ? colors.dark.expressionText
+                  : colors.light.expressionText,
+              },
+            ]}
+            numberOfLines={2}
+          >
+            {input}
+          </Text>
+          <Text
+            style={[
+              styles.resultText,
+              {
+                color: darkTheme
+                  ? colors.dark.resultText
+                  : colors.light.resultText,
+              },
+            ]}
+            numberOfLines={1}
+          >
+            {result}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -110,5 +153,19 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "700",
     color: "#fff",
+  },
+  histroyWraper: {
+    backgroundColor: "lightgray",
+    height: "100%",
+    width: "100%",
+    zIndex: -1,
+    alignItems: "flex-end",
+    paddingHorizontal: 30,
+    paddingTop: 10,
+    paddingBottom: 20,
+  },
+  sparatorComp: {
+    width: 100,
+    height: 20,
   },
 });

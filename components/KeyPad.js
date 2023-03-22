@@ -5,6 +5,9 @@ import {
   useTheme,
   useUpdateInput,
   useUpdateResult,
+  useDisplayToggleHistory,
+  useCreateHistory,
+  useGeteHistory,
 } from "../context";
 import { colors } from "../data/UIData";
 
@@ -13,15 +16,28 @@ export default function KeyPad({ name, color }) {
   const input = useInput();
   const updateInput = useUpdateInput();
   const updateResult = useUpdateResult();
-  const operators = ["+/-", "%", "/", "*", "-", "+"];
+  const displayHistory = useDisplayToggleHistory();
+  const createHistory = useCreateHistory();
+  const getAllHistory = useGeteHistory();
 
-  const handlePress = () => {
+  const handlePress = async () => {
     if (name === "AC") {
       updateInput("");
       updateResult(0);
-    } else if (name === "H") return;
-    else if (name === "=") {
-      updateResult(eval(input));
+    } else if (name === "H") {
+      getAllHistory();
+      displayHistory((prevState) => !prevState);
+    } else if (name === "=") {
+      try {
+        const result = await eval(input);
+        updateResult(result);
+
+        await createHistory(input, result);
+      } catch (error) {
+        updateResult("SyntaxError");
+      }
+    } else if (name == "+/-") {
+      updateInput((prevInput) => prevInput + "-");
     } else return updateInput((prevInput) => prevInput + name);
   };
 

@@ -3,7 +3,12 @@ import { StyleSheet, View } from "react-native";
 import Constants from "expo-constants";
 
 import { Header, KeyPadContainer } from "../components";
-import { useTheme, InputProvider, ResultProvider } from "../context";
+import {
+  useTheme,
+  InputProvider,
+  ResultProvider,
+  HistoryProvider,
+} from "../context";
 import { colors } from "../data/UIData";
 
 export default function HomeScreen() {
@@ -12,20 +17,22 @@ export default function HomeScreen() {
   return (
     <InputProvider>
       <ResultProvider>
-        <View
-          style={[
-            styles.container,
-            {
-              backgroundColor: darkTheme
-                ? colors.dark.homeScreen
-                : colors.light.homeScreen,
-            },
-          ]}
-        >
-          <Header />
-          <KeyPadContainer />
-          <StatusBar style={darkTheme ? "light" : "dark"} />
-        </View>
+        <HistoryProvider>
+          <View
+            style={[
+              styles.container,
+              {
+                backgroundColor: darkTheme
+                  ? colors.dark.homeScreen
+                  : colors.light.homeScreen,
+              },
+            ]}
+          >
+            <Header />
+            <KeyPadContainer />
+            <StatusBar style={darkTheme ? "light" : "dark"} />
+          </View>
+        </HistoryProvider>
       </ResultProvider>
     </InputProvider>
   );

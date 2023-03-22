@@ -12,6 +12,7 @@ export const colors = {
     keyPad: "#F7F7F7",
     keyPadShadow: "#000",
     homeScreen: "#fff",
+    historyContainer: "#DEDEDE",
   },
   dark: {
     activeIcon: "#33373E",
@@ -26,6 +27,7 @@ export const colors = {
     keyPad: "#272B32",
     keyPadShadow: "#000",
     homeScreen: "#22252C",
+    historyContainer: "#282B31",
   },
 };
 
